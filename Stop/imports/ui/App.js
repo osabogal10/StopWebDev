@@ -4,9 +4,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 //Imports carpeta api
-import {Players} from "../api/players.js"
+import {Players} from '../api/players.js';
 
 //Imports carpeta ui
+import GameComponent from './GameComponent.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 
 export class App extends Component {
@@ -26,6 +27,7 @@ export class App extends Component {
           <div> Usuario Logueado </div> :
           <div> Usuario no Logueado </div>
         }
+        <GameComponent/>
 
       </div>
     );

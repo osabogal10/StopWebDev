@@ -8,6 +8,8 @@ import {Players} from "../api/players.js"
 
 //Imports carpeta ui
 import AccountsUIWrapper from './AccountsUIWrapper.js';
+import CreateGame from './CreateGame.js';
+import JoinGame from './JoinGame.js';
 
 export class App extends Component {
   constructor(props) {
@@ -26,6 +28,8 @@ export class App extends Component {
           <div> Usuario Logueado </div> :
           <div> Usuario no Logueado </div>
         }
+        <CreateGame/>
+        <JoinGame/>
 
       </div>
     );

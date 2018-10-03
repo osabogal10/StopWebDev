@@ -33,8 +33,8 @@ export class GameComponent extends Component {
   render() {
     return (
       <div>
-        <h1>GameComponent</h1>
-        <button onClick={this.createGame}>Crear Juego</button>
+        <h2>Create a Game</h2>
+        <button onClick={this.createGame}>Create a Game</button>
         <label >{this.state.gameId}</label>
       </div>
     );

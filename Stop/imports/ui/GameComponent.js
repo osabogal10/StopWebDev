@@ -11,6 +11,7 @@ export class GameComponent extends Component {
 
     this.state = {
       gameId: 0,
+      hostId: null,
       host: null,
       ready: false,
       players:[]
@@ -23,6 +24,7 @@ export class GameComponent extends Component {
     Meteor.call('games.create', (err,res) => {
       this.setState({
         gameId:res.gameId,
+        hostId:res.hostId,
         host:res.gameIdhost,
         ready:res.ready,
         players:res.players,

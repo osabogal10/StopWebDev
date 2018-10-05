@@ -7,9 +7,11 @@ import { Meteor } from 'meteor/meteor';
 import {Players} from '../api/players.js';
 
 //Imports carpeta ui
-import GameComponent from './GameComponent.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
+import CJGame from './CJGame.js'
+import CreateGame from './CreateGame.js'
 import JoinGame from './JoinGame.js';
+import GameComponent from './GameComponent.js';
 
 export class App extends Component {
   constructor(props) {
@@ -23,21 +25,31 @@ export class App extends Component {
     return (
       <div className = "app">
         <h2>Meteor Stop Game</h2>
+        <div>------------------------------------------</div>
+        <div>------------------------------------------</div>
+        <h4>Componentes de prueba</h4>
+        <AccountsUIWrapper/>
+        <CJGame/>
+        <CreateGame/>
+        <JoinGame/>
+        <GameComponent/>
+        <div>------------------------------------------</div>
+        <div>------------------------------------------</div>
+        <h4>Interfaz de usuario a continuacion</h4>
         <h4>Active User</h4>
         <AccountsUIWrapper/>
 
         {Meteor.user() ?
           <div className ="userOK">
           <div> Usuario Logueado </div>
-          <GameComponent/>
-          <JoinGame/>
+          <CJGame/>
           </div>
            :
           <div className ="userNOK">
           <div> Usuario no Logueado </div>
+          
           </div>
         }
-
 
       </div>
     );

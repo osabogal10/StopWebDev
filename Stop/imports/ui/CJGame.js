@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Meteor } from "meteor/meteor";
+import PropTypes from 'prop-types';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Games } from './../api/games.js';
 
 import CreateGame from "./CreateGame.js";
 import JoinGame from "./JoinGame.js";
 
-export default class CJGame extends Component
+export class CJGame extends Component
 {
     constructor(props) 
     {
@@ -71,3 +74,17 @@ export default class CJGame extends Component
         );
     }
 }
+
+CJGame.propTypes = {
+    ready: PropTypes.boolean,
+    players: PropTypes.array
+  };
+  
+  export default withTracker(() => {
+    Meteor.subscribe('games');
+  
+    return{
+      game: Games.find({}).fetch(),
+      user: Meteor.user()
+    };
+  })(CJGame);

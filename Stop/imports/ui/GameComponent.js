@@ -10,7 +10,7 @@ export class GameComponent extends Component {
     super(props);
 
     this.state = {
-      gameId: null,
+      gameId: 0,
       host: null,
       ready: false,
       players:[]
@@ -42,8 +42,6 @@ export class GameComponent extends Component {
 }
 
 GameComponent.propTypes = {
-  gameId: PropTypes.number,
-  host: PropTypes.string,
   ready: PropTypes.boolean,
   players: PropTypes.array
 };

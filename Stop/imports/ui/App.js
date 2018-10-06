@@ -8,10 +8,12 @@ import {Players} from '../api/players.js';
 
 //Imports carpeta ui
 import AccountsUIWrapper from './AccountsUIWrapper.js';
-import CJGame from './CJGame.js'
-import CreateGame from './CreateGame.js'
+import CJGame from './CJGame.js';
+import CreateGame from './CreateGame.js';
 import JoinGame from './JoinGame.js';
 import GameComponent from './GameComponent.js';
+import GameForm from './GameForm.js';
+import OtrosJugadores from './OtrosJugadores';
 
 export class App extends Component {
   constructor(props) {
@@ -29,7 +31,9 @@ export class App extends Component {
         <div>------------------------------------------</div>
         <h4>Componentes de prueba</h4>
         <AccountsUIWrapper/>
-        <CJGame/>
+        <GameForm/>
+        
+        {/* <CJGame/>
         <CreateGame/>
         <JoinGame/>
         <GameComponent/>
@@ -41,15 +45,15 @@ export class App extends Component {
 
         {Meteor.user() ?
           <div className ="userOK">
-          <div> Usuario Logueado </div>
-          <CJGame/>
+            <div> Usuario Logueado </div>
+            <CJGame/>
           </div>
-           :
+          :
           <div className ="userNOK">
-          <div> Usuario no Logueado </div>
+            <div> Usuario no Logueado </div>
           
           </div>
-        }
+        } */}
 
       </div>
     );

@@ -1,90 +1,90 @@
 import React, { Component } from 'react';
-import { Meteor } from "meteor/meteor";
+import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Games } from './../api/games.js';
 
-import CreateGame from "./CreateGame.js";
-import JoinGame from "./JoinGame.js";
+import CreateGame from './CreateGame.js';
+import JoinGame from './JoinGame.js';
 
 export class CJGame extends Component
 {
-    constructor(props) 
-    {
-        super(props);
+  constructor(props) 
+  {
+    super(props);
     
-        this.state = 
+    this.state = 
         {
           gameId: null,
-          gameIdJoin: "",
+          gameIdJoin: '',
           hostId: null,
           host: null,
           ready: false,
           players:[]
         };
     
-        this.handleCreate = this.handleCreate.bind(this);
-		this.handleGameIdJoinChange = this.handleGameIdJoinChange.bind(this);
-		this.handleJoin = this.handleJoin.bind(this);
-    }
+    this.handleCreate = this.handleCreate.bind(this);
+    this.handleGameIdJoinChange = this.handleGameIdJoinChange.bind(this);
+    this.handleJoin = this.handleJoin.bind(this);
+  }
 
-    handleCreate()
+  handleCreate()
+  {
+    Meteor.call('games.create', (err,res) => 
     {
-        Meteor.call('games.create', (err,res) => 
-        {
-            this.setState({
-              gameId:res.gameId,
-              hostId:res.hostId,
-              host:res.gameIdhost,
-              ready:res.ready,
-              players:res.players,
-            });
-        });
-    }
+      this.setState({
+        gameId:res.gameId,
+        hostId:res.hostId,
+        host:res.gameIdhost,
+        ready:res.ready,
+        players:res.players,
+      });
+    });
+  }
 
-    handleGameIdJoinChange(e)
-    {
-        let gameIdJoin = e.target.value;
-        this.setState(gameIdJoin);
-    }
+  handleGameIdJoinChange(e)
+  {
+    let gameIdJoin = e.target.value;
+    this.setState(gameIdJoin);
+  }
 
-    handleJoin(e)
-    {
-        let gameIdJoin = this.state.gameIdJoin;
-        //Meteor.call()     
-        //Teoricamente es tomar el juego del gameIdJoin para insertarle el nuevo jugador
-    }
-    render()
-    {
-        return (
-            <div className ="cjGame">
-            <h2>Soy un pobre texto que sirve de titulo</h2>
+  handleJoin(e)
+  {
+    let gameIdJoin = this.state.gameIdJoin;
+    //Meteor.call()     
+    //Teoricamente es tomar el juego del gameIdJoin para insertarle el nuevo jugador
+  }
+  render()
+  {
+    return (
+      <div className ="cjGame">
+        <h2>Soy un pobre texto que sirve de titulo</h2>
             
-            <div id="gridRow" className="row"> 
-            <CreateGame
+        <div id="gridRow" className="row"> 
+          <CreateGame
             handleCreate={this.handleCreate}
-            />
-            <JoinGame
+          />
+          <JoinGame
             handleJoin={this.handleJoin}
             gameIdJoin={this.state.gameIdJoin}
             handleGameIdJoinChange={this.handleGameIdJoinChange}
-            />
-            </div></div>
+          />
+        </div></div>
 
-        );
-    }
+    );
+  }
 }
 
 CJGame.propTypes = {
-    ready: PropTypes.boolean,
-    players: PropTypes.array
+  ready: PropTypes.boolean,
+  players: PropTypes.array
+};
+  
+export default withTracker(() => {
+  Meteor.subscribe('games');
+  
+  return{
+    game: Games.find({}).fetch(),
+    user: Meteor.user()
   };
-  
-  export default withTracker(() => {
-    Meteor.subscribe('games');
-  
-    return{
-      game: Games.find({}).fetch(),
-      user: Meteor.user()
-    };
-  })(CJGame);
+})(CJGame);

@@ -14,6 +14,7 @@ import JoinGame from './JoinGame.js';
 import GameComponent from './GameComponent.js';
 import GameForm from './GameForm.js';
 import OtrosJugadores from './OtrosJugadores';
+import CreateRoom from './CreateRoom.js';
 
 export class App extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ export class App extends Component {
         <div>------------------------------------------</div>
         <h4>Componentes de prueba</h4>
         <AccountsUIWrapper/>
+        <CreateRoom/>
         <GameForm/>
         
         {/* <CJGame/>

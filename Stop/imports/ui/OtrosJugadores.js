@@ -22,9 +22,9 @@ class OtrosJugadores extends Component {
     return this.props.juegos.map((r,i) => {
       return(
         <tr key={i}>
-          <td>{r.Nombre}</td>
-          <td>{r.Ciudad}</td>
-          <td>{r.Color}</td>
+          <td>{r.Nombre[0]} - {r.Nombre[1]}</td>
+          <td>{r.Ciudad[0]} - {r.Ciudad[1]}</td>
+          <td>{r.Color[0]} - {r.Color[1]}</td>
         </tr>
       );
     });

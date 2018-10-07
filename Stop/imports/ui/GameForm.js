@@ -27,9 +27,11 @@ class GameForm extends Component {
 
   handleStop(){
     let stop = {
-      Nombre: this.state.Nombre,
-      Ciudad: this.state.Ciudad,
-      Color: this.state.Color,
+      User: this.props.user.username,
+      Nombre: [this.state.Nombre,0],
+      Ciudad: [this.state.Ciudad,0],
+      Color: [this.state.Color,0],
+      Puntos: 0
     };
     console.log(stop);
 
@@ -48,10 +50,10 @@ class GameForm extends Component {
                 <th>Color</th>
               </tr>
               <tr>
-                <th><input value={this.state.Nombre} onChange={this.handleChange} name='Nombre' type="text"/></th>
-                <th><input value={this.state.Ciudad} onChange={this.handleChange} name='Ciudad' type="text"/></th>
-                <th><input value={this.state.Color} onChange={this.handleChange} name='Color' type="text"/></th>
-                <th><button onClick={this.handleStop}>STOP!</button></th>
+                <th><input onBlur={this.handleStop} autoFocus value={this.state.Nombre} onChange={this.handleChange} name='Nombre' type="text"/></th>
+                <th><input onBlur={this.handleStop} value={this.state.Ciudad} onChange={this.handleChange} name='Ciudad' type="text"/></th>
+                <th><input onBlur={this.handleStop} value={this.state.Color} onChange={this.handleChange} name='Color' type="text"/></th>
+                <th><button onFocus={this.handleStop} onClick={this.handleStop}>STOP!</button></th>
               </tr>
               <OtrosJugadores/>
             </tbody>

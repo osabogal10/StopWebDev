@@ -10,6 +10,7 @@ if(Meteor.isServer){
 
 Meteor.methods({
   'juegos.addJugada':function(jugada){
-    Juegos.insert(jugada);
+    const username = Meteor.user().username;
+    Juegos.upsert({User:username},jugada);
   }
 });

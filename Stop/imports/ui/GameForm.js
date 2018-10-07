@@ -35,7 +35,7 @@ class GameForm extends Component {
     };
     console.log(stop);
 
-    Meteor.call('juegos.addJugada', stop);
+    Meteor.call('rooms.addPlay', stop,this.props.user.roomId);
   }
 
   render() {
@@ -55,7 +55,6 @@ class GameForm extends Component {
                 <th><input onBlur={this.handleStop} value={this.state.Color} onChange={this.handleChange} name='Color' type="text"/></th>
                 <th><button onFocus={this.handleStop} onClick={this.handleStop}>STOP!</button></th>
               </tr>
-              <OtrosJugadores/>
             </tbody>
           </table>
         </div>

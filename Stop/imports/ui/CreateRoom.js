@@ -3,6 +3,7 @@ import {Card, CardTitle, CardText, Button, Input, Container, Row, Col} from 'rea
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import {withTracker} from 'meteor/react-meteor-data';
+import Room from './Room';
 
 class CreateRoom extends Component {
   constructor(props){
@@ -33,16 +34,33 @@ class CreateRoom extends Component {
     }
   }
 
+  generarLetra(){
+    let alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return alfabeto.charAt(Math.floor(Math.random()*alfabeto.length));
+  }
+
   handleCreate(){
     let room = {
+      letra:this.generarLetra(),
       owner:this.props.user.username,
       pass:'',
       state:'Esperando jugadores',
       players:[this.props.user.username],
-      plays:[]
+      plays:[
+        {
+          user:this.props.user.username,
+          nombre: [this.state.Nombre,0],
+          ciudad: [this.state.Ciudad,0],
+          color: [this.state.Color,0],
+          puntos: 0
+        }]
     };
 
-    Meteor.call('rooms.addRoom',room);
+    Meteor.call('rooms.addRoom',room, function(error,result){
+      if(error){
+        console.log(error);
+      }
+    });
   }
 
   render() {
@@ -73,7 +91,7 @@ class CreateRoom extends Component {
               </Row>
             </Container>
             : 
-            <h1>Sala - {this.props.user.roomId}</h1>
+            <Room user={this.props.user}/>
           : <h3>Debes iniciar sesion para jugar</h3> 
         }
       </div>
@@ -81,8 +99,13 @@ class CreateRoom extends Component {
   }
 }
 
+CreateRoom.propTypes = {
+  user: PropTypes.object
+};
+
 export default withTracker(() => {
   Meteor.subscribe('userData');
+  Meteor.subscribe('rooms');
   return {
     user: Meteor.user()
   };

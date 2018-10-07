@@ -33,7 +33,6 @@ export class App extends Component {
         <h4>Componentes de prueba</h4>
         <AccountsUIWrapper/>
         <CreateRoom/>
-        <GameForm/>
         
         {/* <CJGame/>
         <CreateGame/>

@@ -16,7 +16,7 @@ The instalation can be done through the following steps:
 
 To go to the main folder
 
-```cd [Root]/StopWebDev/Stop```
+```cd [Root]/StopWebDev```
 
 Install meteor dependencies
 

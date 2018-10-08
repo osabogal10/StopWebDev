@@ -21,6 +21,7 @@ class Room extends Component {
           <Container>
             <Row>
               <h1>Sala - {this.props.room._id}</h1>
+              <h2>Letra: {this.props.room.letra}</h2>
             </Row>
             <Row>
               <GameForm user={this.props.user}/>

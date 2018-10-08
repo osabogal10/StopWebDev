@@ -1,5 +1,6 @@
 import {Mongo} from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
+import { Juegos } from './juegos';
 
 export const Rooms = new Mongo.Collection('rooms');
 
@@ -21,25 +22,18 @@ Meteor.methods({
       jugadores.push(username);
       Rooms.update({_id:roomId},{$set:{'players':jugadores}});
       Meteor.users.update({username:username},{$set:{'roomId':roomId}});
-      let primeraJugada = {
-        User: username,
-        Nombre: ['',0],
-        Ciudad: ['',0],
-        Color: ['',0],
-        Puntos: 0
-      };
-      let newPlays=Rooms.findOne({_id:roomId},{plays:1}).plays;
-      //let playIndex = newPlays.find((obj => obj.user == primeraJugada.user));
-      newPlays.push(primeraJugada);
-      Rooms.update({_id:roomId},{$set:{'plays':newPlays}});
+      
+      // let primeraJugada = {
+      //   User: username,
+      //   Nombre: {word:'',score:0},
+      //   Ciudad: {word:'',score:0},
+      //   Color: {word:'',score:0},
+      //   Puntos: 0
+      // };
+      // let newPlays=Rooms.findOne({_id:roomId},{plays:1}).plays;
+      // //let playIndex = newPlays.find((obj => obj.user == primeraJugada.user));
+      // newPlays.push(primeraJugada);
+      // Rooms.update({_id:roomId},{$set:{'plays':newPlays}});
     }
-  },
-  'rooms.addPlay':function(jugada,roomId){
-    let newPlays=Rooms.findOne({_id:roomId},{plays:1}).plays;
-    let playIndex = newPlays.findIndex((obj => obj.user == jugada.user));
-    console.log('index',playIndex);
-    newPlays[playIndex] = jugada;
-    console.log('newPlays',newPlays);
-    Rooms.update({_id:roomId},{$set:{'plays':newPlays}});
   }
 });

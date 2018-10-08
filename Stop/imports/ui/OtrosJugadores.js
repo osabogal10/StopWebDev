@@ -2,47 +2,36 @@ import React, { Component } from 'react';
 import {withTracker} from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
-import { Rooms } from '../api/rooms';
+import { Juegos } from '../api/juegos';
 
 class OtrosJugadores extends Component {
   
   renderOtrosJuegos(){
-    return this.props.room.plays.map((r,i) => {
+    return this.props.juegos.map((r,i) => {
       return(
         <tr key={i}>
-          <td>{r.Nombre}</td>
-          <td>{r.Ciudad}</td>
-          <td>{r.Color}</td>
+          <td>{r.nombre.word}</td>
+          <td>{r.ciudad.word}</td>
+          <td>{r.color.word}</td>
         </tr>
       );
     });
   }
   
   render() {
-    console.log(this.props.room);
-    if(this.props.room!=undefined){
-      return this.props.room.plays.map((r,i) => {
-        return(
-          <tr key={i}>
-            <td>{r.user}</td>
-          </tr>
-        );
-      });
-    }
-    else{
-      return(<div></div>);
-    }
+    console.log('juegos',this.props.juegos);
+    return this.renderOtrosJuegos();
   }
 }
 
 OtrosJugadores.propTypes ={
-  room: PropTypes.object
+  juegos: PropTypes.array
 };
 
 export default withTracker(() => {
-  Meteor.subscribe('rooms');
-  let user = Meteor.user();
+  Meteor.subscribe('juegos');
+  let user=Meteor.user();
   return{
-    room: Rooms.findOne({_id:user.roomId})
+    juegos: Juegos.find({roomId:user.roomId}).fetch()
   };
 })(OtrosJugadores);

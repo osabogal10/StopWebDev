@@ -45,22 +45,10 @@ class CreateRoom extends Component {
       owner:this.props.user.username,
       pass:'',
       state:'Esperando jugadores',
-      players:[this.props.user.username],
-      plays:[
-        {
-          user:this.props.user.username,
-          nombre: [this.state.Nombre,0],
-          ciudad: [this.state.Ciudad,0],
-          color: [this.state.Color,0],
-          puntos: 0
-        }]
+      players:[this.props.user.username]
     };
 
-    Meteor.call('rooms.addRoom',room, function(error,result){
-      if(error){
-        console.log(error);
-      }
-    });
+    Meteor.call('rooms.addRoom',room);
   }
 
   render() {

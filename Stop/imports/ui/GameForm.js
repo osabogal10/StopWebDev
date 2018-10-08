@@ -27,15 +27,16 @@ class GameForm extends Component {
 
   handleStop(){
     let stop = {
-      User: this.props.user.username,
-      Nombre: [this.state.Nombre,0],
-      Ciudad: [this.state.Ciudad,0],
-      Color: [this.state.Color,0],
-      Puntos: 0
+      user: this.props.user.username,
+      roomId:this.props.user.roomId,
+      nombre: {word:this.state.Nombre,score:0},
+      ciudad: {word:this.state.Ciudad,score:0},
+      color: {word:this.state.Color,score:0},
+      puntos: 0
     };
     console.log(stop);
 
-    Meteor.call('rooms.addPlay', stop,this.props.user.roomId);
+    Meteor.call('juegos.addJugada', stop);
   }
 
   render() {
@@ -67,6 +68,7 @@ class GameForm extends Component {
 }
 
 export default withTracker(() => {
+  Meteor.subscribe('juegos');
   return {
     user: Meteor.user()
   };

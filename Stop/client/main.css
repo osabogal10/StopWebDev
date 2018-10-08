@@ -1,4 +1,7 @@
-body {
+body 
+{
   padding: 10px;
   font-family: sans-serif;
+  background-image: url("../public/wp.jpg");
+  background-color:lightgray;
 }

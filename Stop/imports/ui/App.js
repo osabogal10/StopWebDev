@@ -15,6 +15,10 @@ import GameComponent from './GameComponent.js';
 import GameForm from './GameForm.js';
 import OtrosJugadores from './OtrosJugadores';
 import CreateRoom from './CreateRoom.js';
+import Navbar from './Navbar.js';
+
+//Imports de CSS
+import './app.css';
 
 export class App extends Component {
   constructor(props) {
@@ -27,35 +31,21 @@ export class App extends Component {
   render() {
     return (
       <div className = "app">
-        <h2>Meteor Stop Game</h2>
-        <div>------------------------------------------</div>
-        <div>------------------------------------------</div>
-        <h4>Componentes de prueba</h4>
-        <AccountsUIWrapper/>
-        <CreateRoom/>
-        
-        {/* <CJGame/>
-        <CreateGame/>
-        <JoinGame/>
-        <GameComponent/>
-        <div>------------------------------------------</div>
-        <div>------------------------------------------</div>
-        <h4>Interfaz de usuario a continuacion</h4>
-        <h4>Active User</h4>
-        <AccountsUIWrapper/>
-
+        <Navbar/>
         {Meteor.user() ?
-          <div className ="userOK">
-            <div> Usuario Logueado </div>
-            <CJGame/>
-          </div>
-          :
-          <div className ="userNOK">
-            <div> Usuario no Logueado </div>
-          
-          </div>
-        } */}
-
+        <div className="container">
+        <CreateRoom/>
+        </div>
+        :
+        <div className="container">
+          <h1>Welcome to STOP Online Game</h1>
+            <h4>An intense game to compete with family and friends!</h4>
+        <br/><h2> To start you need to log in first</h2>
+        <h2> Active User: </h2>
+        <AccountsUIWrapper/>
+        </div>
+        }
+        
       </div>
     );
   }

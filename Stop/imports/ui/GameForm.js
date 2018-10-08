@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import {withTracker} from 'meteor/react-meteor-data';
 import OtrosJugadores from './OtrosJugadores';
+import {Table, Button, Input} from 'reactstrap';
+import { Rooms } from '../api/rooms';
 
 class GameForm extends Component {
   constructor(props){
@@ -39,28 +41,52 @@ class GameForm extends Component {
     Meteor.call('juegos.addJugada', stop);
   }
 
+  renderOtrosJugadores(){
+    if(this.props.room.state == 'Listo'){
+      return(
+        <Table>
+          <thead>
+            <tr>
+              <th>Jugador</th>
+              <th>Nombre</th>
+              <th>Ciudad</th>
+              <th>Color</th>
+              <th>Puntos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{this.props.user.username}</th>
+              <th><Input onBlur={this.handleStop} autoFocus value={this.state.Nombre} onChange={this.handleChange} name='Nombre' type="text"/></th>
+              <th><Input onBlur={this.handleStop} value={this.state.Ciudad} onChange={this.handleChange} name='Ciudad' type="text"/></th>
+              <th><Input onBlur={this.handleStop} value={this.state.Color} onChange={this.handleChange} name='Color' type="text"/></th>
+              <th><Button color='danger' onFocus={this.handleStop} onClick={this.handleStop}>STOP!</Button></th>
+            </tr>
+          </tbody>
+        </Table>
+      );
+    }
+    else{
+      return(
+        <Table>
+          <thead>
+            <tr>
+              <th>Jugador</th>
+              <th>Nombre</th>
+              <th>Ciudad</th>
+              <th>Color</th>
+              <th>Puntos</th>
+            </tr>
+          </thead>
+        </Table>
+      );
+    }
+  }
+
   render() {
     return(<div>
       {Meteor.user() ? 
-        <div>
-          <table>
-            <tbody>
-              <tr>
-                <th>Nombre</th>
-                <th>Ciudad</th>
-                <th>Color</th>
-              </tr>
-              <tr>
-                <th><input onBlur={this.handleStop} autoFocus value={this.state.Nombre} onChange={this.handleChange} name='Nombre' type="text"/></th>
-                <th><input onBlur={this.handleStop} value={this.state.Ciudad} onChange={this.handleChange} name='Ciudad' type="text"/></th>
-                <th><input onBlur={this.handleStop} value={this.state.Color} onChange={this.handleChange} name='Color' type="text"/></th>
-                <th><button onFocus={this.handleStop} onClick={this.handleStop}>STOP!</button></th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        
-        : 
+        this.renderOtrosJugadores(): 
         <h1>Inicie sesion para jugar</h1>
       }
     </div>);
@@ -69,7 +95,10 @@ class GameForm extends Component {
 
 export default withTracker(() => {
   Meteor.subscribe('juegos');
+  Meteor.subscribe('rooms');
+  let user = Meteor.user();
   return {
-    user: Meteor.user()
+    user: Meteor.user(),
+    room: Rooms.findOne({_id:user.roomId},{})
   };
 })(GameForm);

@@ -34,6 +34,8 @@ Meteor.methods({
       // //let playIndex = newPlays.find((obj => obj.user == primeraJugada.user));
       // newPlays.push(primeraJugada);
       // Rooms.update({_id:roomId},{$set:{'plays':newPlays}});
-    }
+    }},
+  'rooms.changeState':function(state,roomId){
+    Rooms.update({_id:roomId},{$set:{'state':state}});
   }
 });

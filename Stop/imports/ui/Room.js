@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Container, Row, Col} from 'reactstrap';
+import {Container, Row, Col, Table, Button} from 'reactstrap';
 import { Meteor } from 'meteor/meteor';
 import GameForm from './GameForm';
 import OtrosJugadores from './OtrosJugadores';
@@ -10,9 +10,35 @@ import { Rooms } from '../api/rooms';
 class Room extends Component {
   constructor(props){
     super(props);
+
+    this.handleStart = this.handleStart.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+  }
+
+  handleStart(){
+    let estado = 'Listo';
+    Meteor.call('rooms.changeState',estado,this.props.user.roomId);
+  }
+
+  handleReset(){
+    let estado = 'Esperando jugadores';
+    Meteor.call('rooms.changeState',estado,this.props.user.roomId);
   }
   
-  
+  renderAdminRoom(){
+    if(this.props.user.username == this.props.room.owner)
+    {
+      if(this.props.room.state == 'Esperando jugadores')
+      {
+        return(
+          <Col>
+            <Button color='success' onClick={this.handleStart}>Iniciar</Button>  
+          </Col>
+        );
+      }
+    }
+  }
+
   render() {
     if(this.props.room!=undefined)
     {
@@ -21,17 +47,28 @@ class Room extends Component {
           <Container>
             <Row>
               <h1>Sala - {this.props.room._id}</h1>
+              <Button onClick={this.handleReset}>Reset</Button>
+            </Row>
+            <Row>
               <h2>Letra: {this.props.room.letra}</h2>
             </Row>
+            <Row>
+              <Col>
+                <h3>Estado: {this.props.room.state}</h3>
+              </Col>
+              {this.renderAdminRoom()}
+            </Row>
+          </Container>
+          <Container>
             <Row>
               <GameForm user={this.props.user}/>
             </Row>
             <Row>
-              <table>
+              <Table>
                 <tbody>
                   <OtrosJugadores user={this.props.user}/>
                 </tbody>
-              </table>
+              </Table>
             </Row>
           </Container>
         </div>

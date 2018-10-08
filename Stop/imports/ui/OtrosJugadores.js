@@ -10,6 +10,7 @@ class OtrosJugadores extends Component {
     return this.props.juegos.map((r,i) => {
       return(
         <tr key={i}>
+          <td>{r.user}</td>
           <td>{r.nombre.word}</td>
           <td>{r.ciudad.word}</td>
           <td>{r.color.word}</td>

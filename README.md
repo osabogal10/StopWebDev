@@ -10,10 +10,21 @@ The instalation can be done through the following steps:
 
 -Install NodeJS with ReactJS, MongoDB and Meteor packages (To install Meteor you need Chocolatey package manager)
 
--Set a local or external database in MongoDB
-
 ## Deployment
-[Especificar el despliegue]
+
+-Go to CMD and use
+
+To go to the main folder
+
+```cd [Root]/StopWebDev```
+
+Install meteor dependencies
+
+```meteor npm install```
+
+Run the app
+
+```meteor```
 
 ## Authors
 * [__Daniel Cagua Ennis__](https://github.com/dcagua10)

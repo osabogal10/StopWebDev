@@ -15,6 +15,7 @@ class Room extends Component {
     this.handleReset = this.handleReset.bind(this);
     this.startVoting = this.startVoting.bind(this);
     this.handleExit = this.handleExit.bind(this);
+    this.calculateScores = this.calculateScores.bind(this);
   }
 
   handleStart(){
@@ -33,6 +34,12 @@ class Room extends Component {
 
   startVoting(){
     let estado = 'Votaciones';
+    Meteor.call('rooms.changeState',estado,this.props.user.roomId);
+  }
+
+  calculateScores(){
+    Meteor.call('rooms.calculateScores',this.props.user.roomId);
+    let estado = 'Fin';
     Meteor.call('rooms.changeState',estado,this.props.user.roomId);
   }
   
@@ -59,6 +66,29 @@ class Room extends Component {
             <Col>
               <Button color='info' onClick={this.startVoting}>Activar votación</Button>  
             </Col>
+            <Col>
+              <Button onClick={this.handleReset}>Reset</Button>
+            </Col>
+          </Row>
+        );
+      }
+      else if(this.props.room.state == 'Votaciones')
+      {
+        return(
+          <Row>
+            <Col>
+              <Button color='info' onClick={this.calculateScores}>Terminar votación</Button>  
+            </Col>
+            <Col>
+              <Button onClick={this.handleReset}>Reset</Button>
+            </Col>
+          </Row>
+        );
+      }
+      else if(this.props.room.state == 'Fin')
+      {
+        return(
+          <Row>
             <Col>
               <Button onClick={this.handleReset}>Reset</Button>
             </Col>

@@ -40,12 +40,24 @@ class OtrosJugadores extends Component {
             </div>
           </td>
           <td><div>
+            <Input type="checkbox" onChange={(e) => this.handleVotos(e)} name={r.user+';apellido'} checked={(r.user+';apellido').value} />
+            <label>{r.apellido.word}   {r.apellido.score}</label>
+          </div></td>
+          <td><div>
             <Input type="checkbox" onChange={(e) => this.handleVotos(e)} name={r.user+';ciudad'} checked={(r.user+';ciudad').value} />
             <label>{r.ciudad.word}   {r.ciudad.score}</label>
           </div></td>
           <td><div>
+            <Input type="checkbox" onChange={(e) => this.handleVotos(e)} name={r.user+';fruta'} checked={(r.user+';fruta').value} />
+            <label>{r.fruta.word}   {r.fruta.score}</label>
+          </div></td>
+          <td><div>
             <Input type="checkbox" onChange={(e) => this.handleVotos(e)} name={r.user+';color'} checked={(r.user+';color').value} />
             <label>{r.color.word}   {r.color.score}</label>
+          </div></td>
+          <td><div>
+            <Input type="checkbox" onChange={(e) => this.handleVotos(e)} name={r.user+';comida'} checked={(r.user+';comida').value} />
+            <label>{r.comida.word}   {r.comida.score}</label>
           </div></td>
           <td>{r.puntos}</td>
         </tr>
@@ -59,8 +71,11 @@ class OtrosJugadores extends Component {
         <tr key={i}>
           <td>{r.user}</td>
           <td>{r.nombre.word}</td>
+          <td>{r.apellido.word}</td>
           <td>{r.ciudad.word}</td>
+          <td>{r.fruta.word}</td>
           <td>{r.color.word}</td>
+          <td>{r.comida.word}</td>
           <td>{r.puntos}</td>
         </tr>
       );

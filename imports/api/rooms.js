@@ -38,6 +38,29 @@ Meteor.methods({
   'rooms.changeState':function(state,roomId){
     Rooms.update({_id:roomId},{$set:{'state':state}});
   },
+  'rooms.calculateScores':function(roomId){
+    console.log('calculando puntajes');
+    // Grab a cursor
+    var cursor = Juegos.find({roomId:roomId},{_id:0,puntos:0});
+    //console.log(cursor);
+    // Execute the each command, triggers for each document
+    cursor.forEach(function(myDoc) {
+      let total = 0;
+      for (var property in myDoc) {
+        if (myDoc.hasOwnProperty(property)) {
+          if(typeof myDoc[property] == 'object'){
+            if(myDoc[property].score > 0){
+              total+=100;
+            }
+            else if(myDoc[property].score == 0){
+              total+=50;
+            }
+          }
+        }
+      }
+      Juegos.update({user:myDoc.user},{$set:{'puntos':total}});
+    });
+  },
   'rooms.exitRoom':function(username,roomId){
     let jugadores=Rooms.findOne({_id:roomId},{players:1}).players;
     let index = jugadores.indexOf(username);

@@ -73,7 +73,7 @@ class CreateRoom extends Component {
                     <CardTitle>Unirse a una sala</CardTitle>
                     <CardText>Introduce el id de la sala para entrar</CardText>
                     <Input value={this.state.idJoin} onChange={this.handleInput} name='idJoin' type="text"></Input>
-                    <Button onClick={this.handleJoin}>Crear</Button>
+                    <Button onClick={this.handleJoin}>Unirse</Button>
                   </Card>
                 </Col>
               </Row>

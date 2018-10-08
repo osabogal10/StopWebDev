@@ -8,12 +8,6 @@ import {Players} from '../api/players.js';
 
 //Imports carpeta ui
 import AccountsUIWrapper from './AccountsUIWrapper.js';
-import CJGame from './CJGame.js';
-import CreateGame from './CreateGame.js';
-import JoinGame from './JoinGame.js';
-import GameComponent from './GameComponent.js';
-import GameForm from './GameForm.js';
-import OtrosJugadores from './OtrosJugadores';
 import CreateRoom from './CreateRoom.js';
 import Navbar from './Navbar.js';
 

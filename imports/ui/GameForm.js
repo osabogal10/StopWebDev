@@ -12,8 +12,11 @@ class GameForm extends Component {
 
     this.state={
       Nombre: '',
+      Apellido: '',
       Ciudad: '',
+      Fruta: '',
       Color: '',
+      Comida:''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,8 +38,11 @@ class GameForm extends Component {
         user: this.props.user.username,
         roomId:this.props.user.roomId,
         nombre: {word:this.state.Nombre,score:0},
+        apellido: {word:this.state.Apellido,score:0},
         ciudad: {word:this.state.Ciudad,score:0},
+        fruta: {word:this.state.Fruta,score:0},
         color: {word:this.state.Color,score:0},
+        comida: {word:this.state.Comida,score:0},
         puntos: 0
       };
       console.log(stop);
@@ -58,8 +64,11 @@ class GameForm extends Component {
             <tr>
               <th>Jugador</th>
               <th>Nombre</th>
-              <th>Ciudad</th>
+              <th>Apellido</th>
+              <th>Pais/Ciudad</th>
+              <th>Fruta</th>
               <th>Color</th>
+              <th>Comida</th>
               <th>Puntos</th>
             </tr>
           </thead>
@@ -67,8 +76,11 @@ class GameForm extends Component {
             <tr>
               <th>{this.props.user.username}</th>
               <th><Input onBlur={this.updateStop} autoFocus value={this.state.Nombre} onChange={this.handleChange} name='Nombre' type="text"/></th>
+              <th><Input onBlur={this.updateStop} value={this.state.Apellido} onChange={this.handleChange} name='Apellido' type="text"/></th>
               <th><Input onBlur={this.updateStop} value={this.state.Ciudad} onChange={this.handleChange} name='Ciudad' type="text"/></th>
+              <th><Input onBlur={this.updateStop} value={this.state.Fruta} onChange={this.handleChange} name='Fruta' type="text"/></th>
               <th><Input onBlur={this.updateStop} value={this.state.Color} onChange={this.handleChange} name='Color' type="text"/></th>
+              <th><Input onBlur={this.updateStop} value={this.state.Comida} onChange={this.handleChange} name='Comida' type="text"/></th>
               <th><Button color='danger' onFocus={this.handleStop} onClick={this.updateStop}>STOP!</Button></th>
             </tr>
           </tbody>
@@ -82,8 +94,11 @@ class GameForm extends Component {
             <tr>
               <th>Jugador</th>
               <th>Nombre</th>
-              <th>Ciudad</th>
+              <th>Apellido</th>
+              <th>Pais/Ciudad</th>
+              <th>Fruta</th>
               <th>Color</th>
+              <th>Comida</th>
               <th>Puntos</th>
             </tr>
           </thead>

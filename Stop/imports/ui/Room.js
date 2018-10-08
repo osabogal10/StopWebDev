@@ -13,6 +13,8 @@ class Room extends Component {
 
     this.handleStart = this.handleStart.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.startVoting = this.startVoting.bind(this);
+    this.handleExit = this.handleExit.bind(this);
   }
 
   handleStart(){
@@ -24,6 +26,15 @@ class Room extends Component {
     let estado = 'Esperando jugadores';
     Meteor.call('rooms.changeState',estado,this.props.user.roomId);
   }
+
+  handleExit(){
+    Meteor.call('rooms.exitRoom',this.props.user.username,this.props.user.roomId);
+  }
+
+  startVoting(){
+    let estado = 'Votaciones';
+    Meteor.call('rooms.changeState',estado,this.props.user.roomId);
+  }
   
   renderAdminRoom(){
     if(this.props.user.username == this.props.room.owner)
@@ -31,9 +42,27 @@ class Room extends Component {
       if(this.props.room.state == 'Esperando jugadores')
       {
         return(
-          <Col>
-            <Button color='success' onClick={this.handleStart}>Iniciar</Button>  
-          </Col>
+          <Row>
+            <Col>
+              <Button color='success' onClick={this.handleStart}>Iniciar</Button>  
+            </Col>
+            <Col>
+              <Button onClick={this.handleReset}>Reset</Button>
+            </Col>
+          </Row>
+        );
+      }
+      else if(this.props.room.state == 'Stop')
+      {
+        return(
+          <Row>
+            <Col>
+              <Button color='info' onClick={this.startVoting}>Activar votación</Button>  
+            </Col>
+            <Col>
+              <Button onClick={this.handleReset}>Reset</Button>
+            </Col>
+          </Row>
         );
       }
     }
@@ -47,7 +76,7 @@ class Room extends Component {
           <Container>
             <Row>
               <h1>Sala - {this.props.room._id}</h1>
-              <Button onClick={this.handleReset}>Reset</Button>
+              <Button onClick={this.handleExit}>Salir de la sala</Button>
             </Row>
             <Row>
               <h2>Letra: {this.props.room.letra}</h2>

@@ -37,5 +37,28 @@ Meteor.methods({
     }},
   'rooms.changeState':function(state,roomId){
     Rooms.update({_id:roomId},{$set:{'state':state}});
+  },
+  'rooms.exitRoom':function(username,roomId){
+    let jugadores=Rooms.findOne({_id:roomId},{players:1}).players;
+    let index = jugadores.indexOf(username);
+    if(index > -1){
+      jugadores.splice(index,1);
+    }
+    let owner = Rooms.findOne({_id:roomId},{owner:1}).owner;
+    if(username == owner)
+    {
+      if(jugadores.length>0)
+      {
+        let newOwner = jugadores[0];
+        Rooms.update({_id:roomId},{$set:{'owner':newOwner}});
+        Rooms.update({_id:roomId},{$set:{'players':jugadores}});
+        Meteor.users.update({username:username},{$set:{'roomId':0}});
+      }
+      else{
+        //delete
+        Rooms.remove({owner:username});
+        Meteor.users.update({username:username},{$set:{'roomId':0}});
+      }
+    }
   }
 });

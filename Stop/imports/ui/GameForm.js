@@ -17,6 +17,7 @@ class GameForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.updateStop = this.updateStop.bind(this);
     this.handleStop = this.handleStop.bind(this);
   }
 
@@ -27,18 +28,26 @@ class GameForm extends Component {
     });
   }
 
-  handleStop(){
-    let stop = {
-      user: this.props.user.username,
-      roomId:this.props.user.roomId,
-      nombre: {word:this.state.Nombre,score:0},
-      ciudad: {word:this.state.Ciudad,score:0},
-      color: {word:this.state.Color,score:0},
-      puntos: 0
-    };
-    console.log(stop);
+  updateStop(){
+    if(this.props.room.state == 'Listo')
+    {
+      let stop = {
+        user: this.props.user.username,
+        roomId:this.props.user.roomId,
+        nombre: {word:this.state.Nombre,score:0},
+        ciudad: {word:this.state.Ciudad,score:0},
+        color: {word:this.state.Color,score:0},
+        puntos: 0
+      };
+      console.log(stop);
+      
+      Meteor.call('juegos.addJugada', stop);
+    }
+  }
 
-    Meteor.call('juegos.addJugada', stop);
+  handleStop(){
+    let estado = 'Stop';
+    Meteor.call('rooms.changeState',estado,this.props.user.roomId);
   }
 
   renderOtrosJugadores(){
@@ -57,10 +66,10 @@ class GameForm extends Component {
           <tbody>
             <tr>
               <th>{this.props.user.username}</th>
-              <th><Input onBlur={this.handleStop} autoFocus value={this.state.Nombre} onChange={this.handleChange} name='Nombre' type="text"/></th>
-              <th><Input onBlur={this.handleStop} value={this.state.Ciudad} onChange={this.handleChange} name='Ciudad' type="text"/></th>
-              <th><Input onBlur={this.handleStop} value={this.state.Color} onChange={this.handleChange} name='Color' type="text"/></th>
-              <th><Button color='danger' onFocus={this.handleStop} onClick={this.handleStop}>STOP!</Button></th>
+              <th><Input onBlur={this.updateStop} autoFocus value={this.state.Nombre} onChange={this.handleChange} name='Nombre' type="text"/></th>
+              <th><Input onBlur={this.updateStop} value={this.state.Ciudad} onChange={this.handleChange} name='Ciudad' type="text"/></th>
+              <th><Input onBlur={this.updateStop} value={this.state.Color} onChange={this.handleChange} name='Color' type="text"/></th>
+              <th><Button color='danger' onFocus={this.handleStop} onClick={this.updateStop}>STOP!</Button></th>
             </tr>
           </tbody>
         </Table>
@@ -84,12 +93,11 @@ class GameForm extends Component {
   }
 
   render() {
-    return(<div>
-      {Meteor.user() ? 
+    return(
+      Meteor.user() ? 
         this.renderOtrosJugadores(): 
         <h1>Inicie sesion para jugar</h1>
-      }
-    </div>);
+    );
   }
 }
 

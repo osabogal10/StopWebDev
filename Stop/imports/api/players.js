@@ -4,9 +4,9 @@ import { Mongo } from 'meteor/mongo';
 export const Players = new Mongo.Collection('players');
 
 if (Meteor.isServer) {
-	Meteor.publish ('players', () => {
-		return Players.find({});
-	});
+  Meteor.publish ('players', () => {
+    return Players.find({});
+  });
 }
 
 Meteor.methods(
@@ -35,21 +35,21 @@ Meteor.methods(
     },
 
     'players.findById': function(id){
-      const player = Players.find({id: Meteor.userId()}).fetch()
+      const player = Players.find({id: Meteor.userId()}).fetch();
     },
 
     'players.updateWin': function(id){
-      const player = Players.find({id: Meteor.userId()}).fetch()
+      const player = Players.find({id: Meteor.userId()}).fetch();
       Players.update(player[0].userId, win = win+1);
     },
 
     'players.updateLost': function(id){
-      const player = Players.find({id: Meteor.userId()}).fetch()
+      const player = Players.find({id: Meteor.userId()}).fetch();
       Players.update(player[0].userId, lost = lost+1);
     },
 
     'players.updateTie': function(id){
-      const player = Players.find({id: Meteor.userId()}).fetch()
+      const player = Players.find({id: Meteor.userId()}).fetch();
       Players.update(player[0].userId, tie = tie+1);
     }
   }

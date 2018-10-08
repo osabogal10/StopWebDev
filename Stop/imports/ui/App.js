@@ -33,17 +33,17 @@ export class App extends Component {
       <div className = "app">
         <Navbar/>
         {Meteor.user() ?
-        <div className="container">
-        <CreateRoom/>
-        </div>
-        :
-        <div className="container">
-          <h1>Welcome to STOP Online Game</h1>
+          <div className="container">
+            <CreateRoom/>
+          </div>
+          :
+          <div className="container">
+            <h1>Welcome to STOP Online Game</h1>
             <h4>An intense game to compete with family and friends!</h4>
-        <br/><h2> To start you need to log in first</h2>
-        <h2> Active User: </h2>
-        <AccountsUIWrapper/>
-        </div>
+            <br/><h2> To start you need to log in first</h2>
+            <h2> Active User: </h2>
+            <AccountsUIWrapper/>
+          </div>
         }
         
       </div>

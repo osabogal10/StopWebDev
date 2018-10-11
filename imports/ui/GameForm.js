@@ -25,24 +25,35 @@ class GameForm extends Component {
   }
 
   handleChange(event) {
-    const value = event.target.value;
+    // Usar destructuración de objetos
+    // const value = event.target.value;
+    const { value } = event.target;
     this.setState({
       [event.target.name]: value
     });
   }
 
+  // Usar destructuración de objetos  
   updateStop(){
     if(this.props.room.state == 'Listo')
     {
+      const { username: user, roomId } = this.props.user;
+      const { Nombre: nombre,
+              Apellido: apellido,
+              Ciudad: ciudad,
+              Fruta: fruta,
+              Color: color,
+              Comida: comida,
+             } = this.state;
       let stop = {
-        user: this.props.user.username,
-        roomId:this.props.user.roomId,
-        nombre: {word:this.state.Nombre,score:0},
-        apellido: {word:this.state.Apellido,score:0},
-        ciudad: {word:this.state.Ciudad,score:0},
-        fruta: {word:this.state.Fruta,score:0},
-        color: {word:this.state.Color,score:0},
-        comida: {word:this.state.Comida,score:0},
+        user,
+        roomId,
+        nombre: {word:nombre,score:0},
+        apellido: {word:apellido,score:0},
+        ciudad: {word:ciudad,score:0},
+        fruta: {word:fruta,score:0},
+        color: {word:color,score:0},
+        comida: {word:comida,score:0},
         puntos: 0
       };
       console.log(stop);

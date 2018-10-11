@@ -6,8 +6,9 @@ Accounts.onCreateUser(function(options, user)
   //user.profile.firstName = options.firstName;
   //user.profile.lastName = options.lastName;
 
-  user.ganadas = 0;
-  user.perdidas = 0;
+  // Use one language! Change in all the project
+  user.won = 0;
+  user.loose = 0;
   user.roomId = 0;
 
   // Returns the user object
